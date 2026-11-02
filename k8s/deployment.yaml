@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: iris-api
-          image: ghcr.io/OWNER/iris-api:latest
+          image: ghcr.io/zeus-a11y/iris-api:latest
           ports:
             - containerPort: 8000
           readinessProbe:
