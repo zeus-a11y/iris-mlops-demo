@@ -65,17 +65,19 @@ jobs:
     runs-on: ubuntu-latest
     # Only runs once Azure secrets are configured (AKS cluster provisioned via terraform/).
     # Until then this job is skipped entirely instead of failing.
-    if: |
-      github.event_name == 'push' && github.ref == 'refs/heads/main' &&
-      vars.AKS_DEPLOY_ENABLED == 'true'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AKS_DEPLOY_ENABLED == 'true'
     environment: production
     steps:
       - uses: actions/checkout@v4
 
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Set AKS context
         uses: azure/aks-set-context@v4
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
           cluster-name: ${{ secrets.AKS_CLUSTER_NAME }}
           resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
 
