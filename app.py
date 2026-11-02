@@ -3,7 +3,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from src.inference import MODEL_PATH, predict
+from src.inference import , predict
 from src.train import train
 
 st.set_page_config(page_title="Iris Classifier", page_icon="🌸")
